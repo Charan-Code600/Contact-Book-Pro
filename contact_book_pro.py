@@ -3,9 +3,10 @@
 
 import pandas as pd
 import os
+
 print("""
     ====================
-       Contact Book
+       Contact Book Pro
     ====================
       
  Add Contact         enter---> 1
@@ -16,7 +17,8 @@ print("""
  Total Contacts      enter---> 6
  Exit                enter---> 7
 """)
-contacts = {} 
+
+contacts = {}
 
 if os.path.exists("contacts.csv"):
     df = pd.read_csv("contacts.csv")
@@ -25,61 +27,60 @@ if os.path.exists("contacts.csv"):
     print("✅ Contacts loaded!")
 
 while True:
-
     option = input("Choose : ")
+
     if option == "1":
-        name = input("""Add Contact
-    add name : """)
-        number = input("    add Number : ")
-        contacts[name] = number  
+        name = input("Add name : ")
+        number = input("Add Number : ")
+        contacts[name] = number
         df = pd.DataFrame(contacts.items(), columns=["Name", "Number"])
         df.to_csv("contacts.csv", index=False)
         print("✅ Contact added & saved!")
 
     elif option == "2":
-        show = input("Show all Contacts? (yes/no) : ")
-        if show == "yes":
-            if len(contacts) == 0:     
-                print("❌ this name of contact You deleted   .!")
-            else:
-                for key, value in contacts.items():
-                    print("")
-                    print("name :", key)
-                    print("number :", value)
-                    
-
-    elif option =="3":
-        search = input("search contact name :")
-        if search in contacts:
-                print("Number:", contacts[search])
+        if len(contacts) == 0:
+            print("❌ No contacts found!")
         else:
-            print("❌ Contact not found")
+            for key, value in contacts.items():
+                print(f"\nName : {key}")
+                print(f"Number : {value}")
+
+    elif option == "3":
+        search = input("Search contact name : ")
+        if search in contacts:
+            print("Number:", contacts[search])
+        else:
+            print("❌ Contact not found!")
 
     elif option == "4":
-        name = input("Which contact should be updated? : ")
+        name = input("Which contact to update? : ")
         if name in contacts:
-            new_number = input("New Number: ")
-            contacts[name] = new_number  
-            print("✅ Updated! new number ")
+            new_number = input("New Number : ")
+            contacts[name] = new_number
+            df = pd.DataFrame(contacts.items(), columns=["Name", "Number"])
+            df.to_csv("contacts.csv", index=False)
+            print("✅ Updated!")
         else:
-            print("❌ Contact not found")
+            print("❌ Contact not found!")
 
     elif option == "5":
-        delete = input("delete contact name: ")
+        delete = input("Delete contact name : ")
         if delete in contacts:
             del contacts[delete]
             df = pd.DataFrame(contacts.items(), columns=["Name", "Number"])
-            df.to_csv("contacts.csv", index=False)  
+            df.to_csv("contacts.csv", index=False)
             print("✅ Deleted!")
         else:
-            print("❌ Contact not found ")
+            print("❌ Contact not found!")
 
     elif option == "6":
         print("Total Contacts:", len(contacts))
 
-    elif option == "7":  
+    elif option == "7":
         print("Bye! 👋")
         break
 
+    else:
+        print("❌ Invalid option!")
 
 
