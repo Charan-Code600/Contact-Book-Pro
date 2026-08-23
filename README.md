@@ -59,7 +59,7 @@ Amit,0912345678
 
 ## Author
 
-Charan Aade | Python Developer
+**Charan Aade | Python Developer**
 
 
 
